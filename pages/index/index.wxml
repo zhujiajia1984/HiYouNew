@@ -1,2 +1,2 @@
 <!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
+<map id='map' longitude="113.324520" latitude="23.099994" scale="14" class='mapStyle'></map>
