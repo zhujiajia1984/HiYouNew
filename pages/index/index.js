@@ -19,6 +19,46 @@ Page({
         height: 40
       },
       clickable: true
+    }, {
+        id: 2,
+        iconPath: "/assets/images/scienceLoc.png",
+        position: {
+          left: 30,
+          top: 0,
+          width: 40,
+          height: 40
+        },
+        clickable: true
+    }, {
+        id: 3,
+        iconPath: "/assets/images/refresh.png",
+        position: {
+          left: 0,
+          top: 0,
+          width: 40,
+          height: 40
+        },
+        clickable: true
+    }, {
+      id: 4,
+      iconPath: "/assets/images/scan.png",
+      position: {
+        left: 0,
+        top: 50,
+        width: 40,
+        height: 40
+      },
+      clickable: true
+    }, {
+      id: 5,
+      iconPath: "/assets/images/banner.png",
+      position: {
+        left: 5,
+        top: 15,
+        width: 300,
+        height: 46
+      },
+      clickable: true
     }]
   },
 
@@ -75,10 +115,29 @@ Page({
       // 获取地图位置
       return this.getMapRect();
     }).then((mapRect)=>{
-      // 设置地图控件位置
       let controls = this.data.controls;
       for (let i = 0; i < controls.length; i++){
-        controls[i].position.top = mapRect.bottom - 50 - 40*(i+1);
+        if (controls[i].id == 1 || controls[i].id==2){
+          // 左下方2个控件
+          controls[i].position.top = mapRect.bottom - 50 - 40 * (i + 1) - 20 * i;
+        } else if (controls[i].id == 3 || controls[i].id == 4){
+          // 右下方2个控件
+          controls[i].position.top = controls[i-2].position.top;
+          controls[i].position.left = mapRect.right - 40 -30;
+        } else if (controls[i].id == 5){
+          // 顶部广告
+          if (mapRect.width >533){
+            controls[i].position.width = 533;
+            controls[i].position.height = 81;
+          } else if (mapRect.width > 410){
+            controls[i].position.width = 410;
+            controls[i].position.height = 62;
+          }else{
+            controls[i].position.width = 370;
+            controls[i].position.height = 56;
+          }
+          controls[i].position.left = (mapRect.width - controls[i].position.width) / 2;
+        }
       }
       this.setData({ controls: controls });
       wx.hideNavigationBarLoading();
