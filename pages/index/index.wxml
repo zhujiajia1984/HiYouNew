@@ -1,3 +1,19 @@
 <!--pages/index/index.wxml-->
-<map id='map' longitude="{{curLoc.lng}}" latitude="{{curLoc.lat}}" scale="18" class='mapStyle' controls="{{controls}}" bindcontroltap="controltap" show-location>
+<map id='map' longitude="{{curLoc.lng}}" latitude="{{curLoc.lat}}" scale="18" style="width:100%;height:{{mapHeight}}" controls="{{controls}}" bindcontroltap="controltap" polyline="{{polyline}}" markers="{{markers}}" bindmarkertap="markertap" bindtap="mapClick" show-location>
+   <cover-view wx:if="{{isInfoShow}}" class='mapView' bindtap='onDetail'>
+    <cover-view class='infoWrapper'>
+      <cover-view class='infoTitle'>{{curMarker.name}}</cover-view>
+      <cover-view class='infoDesp'>{{curMarker.desp}}</cover-view>
+    </cover-view>
+    <cover-view class='naviWrapper'>
+      <cover-view class='naviSignal'>|</cover-view>
+      <cover-view class='naviImage'>
+        <cover-image class="naviIcon" src="/assets/images/luxian.png" />
+        <cover-view class="naviDesp">路线</cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+  <cover-view wx:if="{{isInfoShow}}" class='thumbView' bindtap='onDetail'>
+    <cover-image class="thumbImage" src="{{curMarker.thumb}}" />
+  </cover-view> 
 </map>
