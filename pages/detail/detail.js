@@ -12,7 +12,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let { id } = options;
+    if (typeof (id) == "undefined" || id == ""){
+      // markerID不存在
+      wx.showToast({
+        title: 'markerID不存在',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    // 业务处理
+    console.log(id);
   },
 
   /**

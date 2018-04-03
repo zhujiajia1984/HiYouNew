@@ -1,1 +1,6 @@
 /* pages/detail/detail.wxss */
+page{
+  display: flex;
+  flex-direction: column;
+  background-color: #d9d9d9;
+}

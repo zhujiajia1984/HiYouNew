@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isInfoShow: true,
+    isInfoShow: false,
     mapHeight: '100%',
     curMarker: {},
     mapRect: null,
@@ -81,7 +81,7 @@ Page({
   // 查看详情页
   onDetail: function(){
     wx.navigateTo({
-      url: '/pages/detail/detail',
+      url: `/pages/detail/detail?id=${this.data.curMarker._id}`,
     })
   },
 
@@ -276,6 +276,7 @@ Page({
               name: item.name,
               desp: item.desp,
               type: item.type,
+              _id: item._id,
             });
           });
           return resolve(markers);
