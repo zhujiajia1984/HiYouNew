@@ -1,2 +1,51 @@
 <!--pages/detail/detail.wxml-->
-<view></view>
+<view class='detailHeader' style="background-image:url({{curMarker.thumb}})">
+  <view class='detailHeaderTools'>
+    <image src='/assets/images/share.png' class='toolsIcon firstIcon'></image>
+    <image src='/assets/images/navi.png' class='toolsIcon'></image>
+    <image src='/assets/images/favourNo.png' class='toolsIcon lastIcon'></image>
+  </view>
+  <view class='detailHeaderPlay'>
+  </view>
+  <view class='detailHeaderFooter'>
+    <view class='footerBody'>
+      <text>{{audioTime.totalTime}}</text>
+    </view>
+  </view>
+</view>
+<view class='detailBody'>
+  <view class='detailBodyTitle'>
+    <view class='detailBodyTitleHeader'>
+      <view class='detailBodyTitleContent'>
+        <text >{{curMarker.name}}</text>
+      </view>
+      <view class='detailBodyTitleDesp'>
+        <text >{{curMarker.desp}}</text>
+      </view>
+    </view>
+    <view class='detailBodyTitleFooter'>
+       <image src='{{curAudioStatus}}' class='playIcon' bindtap='onAudioClick'></image> 
+    </view>
+  </view>
+  <view class='detailBodyContent'>
+    <text>{{curMarker.richText}}</text>
+  </view>
+</view>
+<view class='detailFooter'>
+  <view class="weui-cells__title detailFooterTitle">
+    <view class='detailFooterDivider'></view>
+    <text>推荐周边景点</text>
+  </view>
+   <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell" wx:for="{{recommendMarkers}}" wx:key="_id" bindtap='onRecMarkerClick' data-id='{{item._id}}'>
+        <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+        <image src="{{item.thumb}}" style="width: 50px; height: 50px; display: block"/>
+        </view>
+        <view class="weui-cell__bd">
+          <view>{{item.name}}</view>
+          <view style="font-size: 13px;color: #888888;">{{item.desp}}</view>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </view>
+    </view>
+</view> 

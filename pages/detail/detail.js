@@ -1,11 +1,122 @@
 // pages/detail/detail.js
+const backgroundAudioManager = wx.getBackgroundAudioManager();  // 背景音频管理控件
+const domain = "https://test.weiquaninfo.cn";
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    curMarker: {},
+    recommendMarkers: {},
+    curAudioStatus: "/assets/images/pause.png",
+    audioTime: {
+      curTime: '',
+      totalTime: '',
+    }
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 跳转推荐marker
+  onRecMarkerClick:function(e){
+    wx.redirectTo({
+      url: `/pages/detail/detail?id=${e.currentTarget.dataset.id}`
+    })
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 获取推荐的markers数据
+  getRecommendMarkers:function(marker){
+    return new Promise((resolve, reject) => {
+      let url = `${domain}/mongo/markers`;
+      const requestTask = wx.request({
+        url: url,
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          if (res.data.length == 0) {
+            // 空区域
+            return resolve([]);
+          }
+          let markers = [];
+          res.data.map((item)=>{
+            if (item._id != marker._id && markers.length < 2){
+              markers.push(item);
+            }
+          })
+          return resolve(markers);
+        }
+      })
+    })
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 获取marker数据
+  getMarkerInfo:function(id){
+    return new Promise((resolve, reject)=>{
+      let url = `${domain}/mongo/markers?id=${id}`;
+      const requestTask = wx.request({
+        url: url,
+        header: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          if (res.data.length == 0) {
+            // 空区域
+            return resolve([]);
+          }
+          return resolve(res.data[0]);
+        }
+      })
+    })
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 点击播放/暂停音频
+  onAudioClick: function(){
+    if (backgroundAudioManager.paused){
+      // 重新播放
+      backgroundAudioManager.play();
+    }else{
+      // 暂停
+      backgroundAudioManager.pause();
+    }
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 秒数转分钟秒格式
+  secToMin: function (t) {
+    return Math.floor(t / 60) + ":" + (t % 60 / 100).toFixed(2).slice(-2);
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 初始化后台音乐播放器
+  initBgAudio: function(marker){
+    var that = this;
+    backgroundAudioManager.title = marker.name;
+    backgroundAudioManager.epname = "多倍通";
+    backgroundAudioManager.singer = 'Hi游';
+    backgroundAudioManager.webUrl = marker.audio[0].url;
+    backgroundAudioManager.coverImgUrl = marker.thumb;
+    backgroundAudioManager.src = marker.audio[0].url;
+    backgroundAudioManager.onPlay(()=>{
+      if (backgroundAudioManager.duration){
+        let audioTime = that.data.audioTime;
+        audioTime.totalTime = that.secToMin(backgroundAudioManager.duration);
+        that.setData({ curAudioStatus: "/assets/images/pause.png", audioTime: audioTime });
+      }
+    });
+    backgroundAudioManager.onPause(() => {
+      that.setData({ curAudioStatus: "/assets/images/play.png" });
+    });
+    backgroundAudioManager.onStop(() => {
+      that.setData({ curAudioStatus: "/assets/images/play.png" });
+    });
+    backgroundAudioManager.onEnded(() => {
+      that.setData({ curAudioStatus: "/assets/images/play.png" });
+    });
   },
 
   /**
@@ -23,14 +134,20 @@ Page({
       return;
     }
     // 业务处理
-    console.log(id);
+    this.getMarkerInfo(id).then((marker)=>{
+      this.marker = marker;
+      return this.getRecommendMarkers(marker);
+    }).then((recommendMarkers)=>{
+      this.initBgAudio(this.marker);
+      this.setData({ curMarker: this.marker, recommendMarkers: recommendMarkers});
+    })
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
   },
 
   /**
