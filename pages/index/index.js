@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isInfoShow: true,
+    isInfoShow: false,
     mapHeight: '100%',
     curMarker: {},
     mapRect: null,
@@ -80,17 +80,22 @@ Page({
   /////////////////////////////////////////////////////////////////////////////////
   // 路线导航
   onNavi: function(e){
-    let loc = JSON.stringify(this.data.curLoc);
+    let location = JSON.stringify(this.data.curLoc);
+    let marker = JSON.stringify({
+      lng: this.data.curMarker.longitude,
+      lat: this.data.curMarker.latitude
+    });
     wx.navigateTo({
-      url: `/pages/navi/navi?lng=${this.data.curMarker.lng}&lat=${this.data.curMarker.lat}$loc=${loc}`,
+      url: `/pages/navi/navi?marker=${marker}&location=${location}`,
     })
   },
 
   /////////////////////////////////////////////////////////////////////////////////
   // 查看详情页
   onDetail: function(){
+    let location = JSON.stringify(this.data.curLoc);
     wx.navigateTo({
-      url: `/pages/detail/detail?id=${this.data.curMarker._id}`,
+      url: `/pages/detail/detail?id=${this.data.curMarker._id}&location=${location}`,
     })
   },
 

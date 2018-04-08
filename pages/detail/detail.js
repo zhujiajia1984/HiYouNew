@@ -14,7 +14,20 @@ Page({
     audioTime: {
       curTime: '',
       totalTime: '',
-    }
+    },
+    location: {},
+  },
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 跳转navi
+  onNavi:function(){
+    let marker = JSON.stringify({
+      lng: this.data.curMarker.lng,
+      lat: this.data.curMarker.lat
+    });
+    wx.navigateTo({
+      url: `/pages/navi/navi?marker=${marker}&location=${this.location}`,
+    })
   },
 
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -123,8 +136,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let { id } = options;
+    let { id, location} = options;
     this.id = id;
+    this.location = location;
+    // console.log(this.location);
     if (typeof (id) == "undefined" || id == ""){
       // markerID不存在
       wx.showToast({

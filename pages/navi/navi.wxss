@@ -1,1 +1,17 @@
 /* pages/navi/navi.wxss */
+Page{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.map_box{
+  height: 85%;
+}
+.text_box{
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* background-color: #d9d9d9; */
+}

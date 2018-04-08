@@ -1,2 +1,8 @@
 <!--pages/navi/navi.wxml-->
-<text>pages/navi/navi.wxml</text>
+<view class="map_box">
+  <map id="navi_map" style='height:100%;width:100%' longitude="{{marker.lng}}" latitude="{{marker.lat}}" scale="18" markers="{{markers}}" polyline="{{polyline}}"></map>
+</view>
+<view class='text_box'>
+  <text>步行距离：{{distance}}</text>
+  <text>预计时间：{{duration}}</text>
+</view>

@@ -30,13 +30,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "id=5ac46c036abb210015009dd8"
+					"query": "id=5ac46c036abb210015009dd8&location={\"lng\":121.38206, \"lat\":31.11325}"
+				},
+				{
+					"id": 1,
+					"name": "navi",
+					"pathName": "pages/navi/navi",
+					"query": "marker={\"lng\":121.361729, \"lat\":31.108158}&location={\"lng\":121.38206, \"lat\":31.11325}"
 				}
 			]
 		}

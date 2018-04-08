@@ -2,7 +2,7 @@
 <view class='detailHeader' style="background-image:url({{curMarker.thumb}})">
   <view class='detailHeaderTools'>
     <image src='/assets/images/share.png' class='toolsIcon firstIcon'></image>
-    <image src='/assets/images/navi.png' class='toolsIcon'></image>
+    <image src='/assets/images/navi.png' class='toolsIcon' bindtap='onNavi'></image>
     <image src='/assets/images/favourNo.png' class='toolsIcon lastIcon'></image>
   </view>
   <view class='detailHeaderPlay'>
