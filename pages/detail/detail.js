@@ -124,6 +124,7 @@ Page({
    */
   onLoad: function (options) {
     let { id } = options;
+    this.id = id;
     if (typeof (id) == "undefined" || id == ""){
       // markerID不存在
       wx.showToast({
@@ -141,7 +142,6 @@ Page({
       this.initBgAudio(this.marker);
       this.setData({ curMarker: this.marker, recommendMarkers: recommendMarkers});
     })
-    
   },
 
   /**
@@ -175,7 +175,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    // 业务处理
+    this.getMarkerInfo(this.id).then((marker) => {
+      this.marker = marker;
+      return this.getRecommendMarkers(marker);
+    }).then((recommendMarkers) => {
+      this.initBgAudio(this.marker);
+      this.setData({ curMarker: this.marker, recommendMarkers: recommendMarkers });
+      wx.stopPullDownRefresh();
+    })
   },
 
   /**

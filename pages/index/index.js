@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isInfoShow: false,
+    isInfoShow: true,
     mapHeight: '100%',
     curMarker: {},
     mapRect: null,
@@ -75,6 +75,15 @@ Page({
       dottedLine: true
     }],
     markers:[],
+  },
+
+  /////////////////////////////////////////////////////////////////////////////////
+  // 路线导航
+  onNavi: function(e){
+    let loc = JSON.stringify(this.data.curLoc);
+    wx.navigateTo({
+      url: `/pages/navi/navi?lng=${this.data.curMarker.lng}&lat=${this.data.curMarker.lat}$loc=${loc}`,
+    })
   },
 
   /////////////////////////////////////////////////////////////////////////////////

@@ -90,6 +90,7 @@ page{
 .detailFooter{
   /* flex:1; */
   background-color: white;
+  margin-bottom: 10px;
 }
 .detailFooterTitle{
   display: flex;

@@ -5,7 +5,7 @@
       <cover-view class='infoTitle'>{{curMarker.name}}</cover-view>
       <cover-view class='infoDesp'>{{curMarker.desp}}</cover-view>
     </cover-view>
-    <cover-view class='naviWrapper'>
+    <cover-view class='naviWrapper' catchtap='onNavi'>
       <cover-view class='naviSignal'>|</cover-view>
       <cover-view class='naviImage'>
         <cover-image class="naviIcon" src="/assets/images/luxian.png" />
