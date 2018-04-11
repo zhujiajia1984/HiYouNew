@@ -34,7 +34,7 @@ Page({
   // 跳转推荐marker
   onRecMarkerClick:function(e){
     wx.redirectTo({
-      url: `/pages/detail/detail?id=${e.currentTarget.dataset.id}`
+      url: `/pages/detail/detail?id=${e.currentTarget.dataset.id}&location=${this.location}`
     })
   },
 
@@ -212,6 +212,5 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
   }
 })

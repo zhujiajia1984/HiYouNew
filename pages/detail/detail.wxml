@@ -1,7 +1,10 @@
 <!--pages/detail/detail.wxml-->
 <view class='detailHeader' style="background-image:url({{curMarker.thumb}})">
   <view class='detailHeaderTools'>
-    <image src='/assets/images/share.png' class='toolsIcon firstIcon'></image>
+    <view style="position:relative">
+      <image src='/assets/images/share.png' class='toolsIcon firstIcon'></image>
+      <button open-type="share" style="position:absolute;left:0px;top:0px;width:50px;height:40px;border:none" plain="true"></button>
+    </view>
     <image src='/assets/images/navi.png' class='toolsIcon' bindtap='onNavi'></image>
     <image src='/assets/images/favourNo.png' class='toolsIcon lastIcon'></image>
   </view>
@@ -37,7 +40,7 @@
     <text>推荐周边景点</text>
   </view>
    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell" wx:for="{{recommendMarkers}}" wx:key="_id" bindtap='onRecMarkerClick' data-id='{{item._id}}'>
+      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{recommendMarkers}}" wx:key="_id" bindtap='onRecMarkerClick' data-id='{{item._id}}'>
         <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
         <image src="{{item.thumb}}" style="width: 50px; height: 50px; display: block"/>
         </view>
